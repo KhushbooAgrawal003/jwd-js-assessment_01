@@ -21,9 +21,18 @@
 
 window.addEventListener('DOMContentLoaded', () => {
   const start = document.querySelector('#start');
+
+  // Added DOM elements
+  const display = document.querySelector('#time');
+  const submit = document.querySelector('#btnSubmit');
+  const reset = document.querySelector('#btnReset');
+  const score = document.querySelector('#score');
+
+
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
+    startTimer(time, display); //Function to display timer
   });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -40,10 +49,24 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 3,
     },
     {
-      q: 'What is the capital of Australia',
+      q: 'What is the capital of Australia?',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+
+    // Two New question added Below.
+    {
+      q: 'Who is No 1 population country in the world?',
+      o: ['India', 'Australia', 'China', 'United States'],
+      a: 2,
+    },
+    {
+      q: 'What is the name of national animal of Australia?',
+      o: ['Kangaroo', 'Tiger', 'Bear', 'Elephant'],
+      a: 0,
+    },
+
+
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -71,20 +94,83 @@ window.addEventListener('DOMContentLoaded', () => {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
+        //console.log(li);
+        //console.log(r);
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
 
         if (quizItem.a == i) {
           //change background color of li element here
-        }
+          liElement.style.backgroundColor = "green";
+        } 
+        /* else {
+         liElement.style.backgroundColor = "red";
+        } */
 
-        if (radioElement.checked) {
+        if (radioElement.checked && quizItem.a === i) {
           // code for task 1 goes here
+          score ++;  
         }
       }
     });
+       return score;
   };
 
+  //Add a countdown timer 
+
+  let submitStatus = 0;
+  let time = 60;
+  function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    const timeout = setInterval(() => {
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      //Displaying time on window
+
+      display.textContent = minutes + ":" + seconds;
+
+      //Displaying content when time is over 
+      if (display.textContent == '00:00'){
+        totalScore = calculateScore();
+        score.innerHTML = `Total score: ${totalScore}`;
+        display.textContent = "Time Up!!";
+        submit.style.display = 'none';
+        return
+      }
+
+      if(submitStatus === 1){
+        clearInterval(timeout);
+        display.textContent = "Quiz submitted"
+      } 
+
+      if (--timer < 0){
+        timer = duration;
+      }        
+   
+    }, 1000);
+  }
+
+          
+
+  // Event listener for the submit button, which will display the score and highlight 
+  submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    totalScore = calculateScore();
+    score.innerHTML = `Total score: ${totalScore}`;
+    submit.style.display = 'none';
+    submitStatus ===1;
+   
+  });
+
+  //Reload the page when the reset button is clicked
+  reset.addEventListener('click', () => {
+    window.location.reload();
+  })
+ 
   // call the displayQuiz function
   displayQuiz();
 });

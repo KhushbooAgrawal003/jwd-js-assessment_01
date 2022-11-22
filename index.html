@@ -18,24 +18,27 @@
   </head>
   <body>
     <div class="container m-5" id="start">
-      <div class="card" style="width: 18rem">
-        <div class="card-body">
-          <h5 class="card-title">Test your knowledge</h5>
-          <p class="card-text">Some quick description about the quiz .</p>
+      <div class="card" style="width: 22rem">
+        <div class="card-body" style="border: 3px solid rgb(63, 88, 17); background-color:rgb(149, 245, 171)">
+          <h5 class="card-title">Test your General Knowledge</h5>
+          <!--<p class="card-text">Some quick description about the quiz.</p> -->
+          <p class="card-text">Click on Start Button to start the quiz.</p>
           <a class="btn btn-primary">Start</a>
-        </div>
+        </div>  
       </div>
     </div>
 
     <!-- (B) QUIZ CONTAINER -->
-    <div class="container" id="quizBlock" style="display: none">
+        <!-- <h2 class=" text-center">Test your knowledge</h2> -->
+        <div class="container" id="quizBlock" style="display: none; background-color: gold">
       <div class="mb-5">
-        <h2>Test your knowledge</h2>
-        - Time remaining <span id="time">01:00</span>
+        <h2 class=" text-center"> Test Your General Knowledge </h2>
+        <!-- Time remaining <span id="time">01:00</span> -->
+        <h5 class= "text-right"> Time remaining: <span id="time" style="font-size: 20px; color: red;">01:00</span></h5>
       </div>
       <div id="quizWrap"></div>
 
-      <div>
+      <!-- <div>
         <button type="button" class="btn btn-primary" id="btnSubmit">
           Submit Quiz
         </button>
@@ -44,7 +47,17 @@
         </button>
         <span id="score"></span>
       </div>
+    </div> -->
+ <div class="mb-4">
+      <button type="button" class="btn btn-primary" style="background-color: green; color: rgb(22, 24, 22);"  id="btnSubmit">
+       Submit Quiz
+      </button>
+      <button type="button" class="btn btn-primary ml-5" style="background-color: red; color: rgb(24, 23, 22);" id="btnReset">
+        Reset Quiz
+      </button>
+      <span id="score"></span>
     </div>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
